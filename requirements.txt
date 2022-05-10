@@ -1,0 +1,8 @@
+flask
+pandas
+yfinance
+streamlit
+tweepy == 3.9.0
+plotly
+tweet-preprocessor
+pandas_datareader

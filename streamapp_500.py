@@ -3,9 +3,7 @@ import pandas as pd
 import streamlit as st
 from nifty_algo import *
 from nifty_algo_500 import *
-from data_long import *
-from data_500 import *
-from twitter import *
+
 from datetime import date
 import plotly.graph_objects as go
 
@@ -14,7 +12,7 @@ from stock_specific import *
 
 
 st.set_page_config(
-    page_title="Stock Explorer - Abhijay",
+    page_title="Stock Explorer",
     page_icon="🧊",
     initial_sidebar_state="auto",
     #menu_items={
@@ -25,7 +23,7 @@ st.set_page_config(
 )
 
 page = st.sidebar.selectbox(
-    "Choose a page", ['Stock Search', "Twitter Search", "Nifty 500 Explorer"])
+    "Choose a page", ['Stock Search'])
 
 
 def consolidated():
@@ -115,59 +113,8 @@ analysis_dict_w = {
 
 }
 
-if page == "Nifty 500 Explorer":
-    
-    st.sidebar.write("---")
-    st.title('Nifty 500 Explorer')
-       
-    if(st.sidebar.button("Pull Data")):
-        snapshot_500()
-    
-        
-    selected_analysis = st.sidebar.selectbox(
-        "Select Analysis", list(analysis_dict.keys()))
-    st.write("---")
 
-    #selected_analysis_w = st.selectbox(
-    #    "Watchlist Analysis", list(analysis_dict_w.keys()))
-    #st.write("---")
-
-    ## Create a button
-    #if(st.button("Watchlist Snapshot")):
-    #    snapshot()
-
-   
-    st.subheader(selected_analysis)
-    analysis_dict[selected_analysis]()
-
-elif page == "Twitter Search":
-    
-    
-    #st.header(selected_analysis_w)
-    #analysis_dict_w[selected_analysis_w]()
-    
-    st.title('Twitter Search')
-    today = date.today()
-    date_since = st.date_input('Since', today)
-    numTweets = st.slider('Number of Tweets', 1, 500, 100)
-    symbol = st.text_input('Enter Search Term')
-
-    if symbol:
-        numRuns = 1
-        df = scraptweets(symbol, date_since, numTweets, numRuns)
-    
-        fig = go.Figure(data=[go.Table(
-            header=dict(values=list(df.columns),
-                        fill_color='paleturquoise',
-                        align='left'),
-            cells=dict(values=[df.Text, df.Username, df.Created, df.Retweeted, df.URL],
-                       fill_color='lavender',
-                       align='left', font_size=12))
-        ])
-    
-        st.plotly_chart(fig, use_container_width=True)
-
-else:
+if page == 'Stock Search':
     st.title('Stock Search')
     
     valid_intervals = ['1d','5d','1wk','1mo','3mo']

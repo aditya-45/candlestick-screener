@@ -1,8 +1,7 @@
 import os
 import pandas as pd
 import streamlit as st
-from nifty_algo import *
-from nifty_algo_500 import *
+
 
 from datetime import date
 import plotly.graph_objects as go
